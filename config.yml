@@ -1,0 +1,133 @@
+variables: secrets.yml
+web_server:
+  bind: 0.0.0.0
+  port: 8081
+  web_ui: yes
+
+schedules:
+  - tasks: '*'
+    interval:
+      minutes: 10
+  - tasks: 'litrcc'
+    interval:
+      hours: 1
+
+templates:
+  notification:
+    notify:
+      entries:
+        message: |+
+          *{{series_name_rus}}* рейтинг: {{tvdb_ep_rating}}
+          *{{episode_name_rus}}*
+          _{{series_season}} сезон {{series_episode}} серия_
+          [Постер]({{tvdb_banner}})
+        via:
+          - telegram:
+             bot_token: '{? telegram.bot_token ?}'
+             parse_mode: markdown
+             recipients:
+               - username: '{? telegram.username ?}'
+  transmissionrpc:
+   transmission:
+      host: '{? transmissionlogin.host ?}'
+      port: 9091
+      username: '{? transmissionlogin.username ?}'
+      password: '{? transmissionlogin.password ?}'
+  tvshows:
+    thetvdb_lookup: yes
+    set:
+      path: /volume1/video/TV Shows/{{series_name}}/0{{series_season}}_Season
+      label: TV Shows
+    series_premiere: yes
+tasks:
+  litrcc:
+    template:
+      - transmissionrpc
+      - tvshows
+      - notification
+    rss: feed_link
+    accept_all: no
+    series:
+       - Westworld
+       - Silicon Valley
+       - South Park
+lostfilm:
+    template:
+      - tvshows
+      - transmissionrpc
+      - notification
+    headers:
+      cookie:  '{? lostfilm.cookie_new ?}'
+    lostfilm: yes
+    regexp:
+      reject:
+        - The Complete
+    quality:
+      - 1080p
+    series:
+       settings:
+          main:
+             tracking: yes
+       series:
+       - Elementary
+       - Animal Kingdom
+       - Legion
+       - Lucifer
+       - Billions
+       - Supergirl
+       - The Walking Dead
+       - Six
+       - I'm Dying Up Here
+       - Trust
+       - 13 Reasons Why
+       - Colony
+       - The 100
+       - The Flash
+       - Hawaii Five-0
+       - Fear the Walking Dead
+       - Modern Family
+       - Blindspot
+       - Agents of S.H.I.E.L.D.
+       - Supernatural
+       - Gotham
+       - Arrow
+       - The Blacklist
+       - 9-1-1
+       - Lethal Weapon
+       - Homeland
+       - Jessica Jones
+       - Legends of Tomorrow
+       - The Magicians
+       - The Path
+       - The Good Doctor
+       - American Crime Story
+       - The X-Files
+       - This Is Us
+       - McMafia
+       - Knightfall
+       - The Librarians
+       - Vikings
+       - Black Mirror
+       - The Frankenstein Chronicles
+       - The Punisher
+       - Peaky Blinders
+       - Z Nation
+       - Dirk Gently's Holistic Detective Agency
+       - Mr. Robot
+       - Mindhunter
+       - Stranger Things
+       - American Horror Story
+       - The Last Ship
+       - Narcos
+       - Preacher
+       - Shooter
+       - Game of Thrones
+       - Fargo
+       - Better Call Saul
+       - 12 Monkeys
+       - It's Always Sunny in Philadelphia
+       - Sherlock
+       - The Man in the High Castle
+       - From Dusk Till Dawn
+       - Scream
+       - Daredevil
