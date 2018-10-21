@@ -18,9 +18,9 @@ sudo /var/packages/python/target/bin/pip install python-telegram-bot -U
 sudo /var/packages/python/target/bin/pip install pysocks -U
 ```
 3)Edit file:
-
+```
 sudo nano /var/packages/python/target/lib/python2.7/site-packages/flexget/plugins/notifiers/telegram.py
-
+```
 replace string:
 ```
 "def _init_bot(self):
