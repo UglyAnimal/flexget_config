@@ -5,9 +5,9 @@ How to install new version of flexget on Synology NAS.
 
 2)Run commands from shell:
 ```
-sudo /var/packages/python/target/bin/pip install --upgrade pip
+sudo /var/packages/python/target/bin/pip install pip -U
 
-sudo /var/packages/python/target/bin/pip install --upgrade setuptools
+sudo /var/packages/python/target/bin/pip install setuptools -U
 
 sudo /var/packages/python/target/bin/pip install flexget -U
 
@@ -23,9 +23,9 @@ sudo nano /var/packages/python/target/lib/python2.7/site-packages/flexget/plugin
 ```
 replace string:
 ```
-"def _init_bot(self):
+def _init_bot(self):
         self._bot = telegram.Bot(self._token)
-        self._check_token()"
+        self._check_token()
 ```
 to string:
 
