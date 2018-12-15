@@ -31,13 +31,7 @@ to string:
 
 ```
 def _init_bot(self):
-        pp = telegram.utils.request.Request(
-            proxy_url='socks5://r43271237.teletype.live:1080',
-            urllib3_proxy_kwargs={
-                'username': 'telegram',
-                'password': 'telegram',
-            }
-         )
+        pp = telegram.utils.request.Request(proxy_url='socks5://r43271237.teletype.live:1080',urllib3_proxy_kwargs={'username': 'telegram','password': 'telegram',})
         self._bot = telegram.Bot(self._token, request=pp)
         self._check_token()
 ```
