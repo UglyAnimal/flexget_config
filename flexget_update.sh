@@ -10,5 +10,8 @@ sudo /var/packages/python/target/bin/pip install flexget -U
 sudo /var/packages/python/target/bin/pip install transmissionrpc -U
 sudo /var/packages/python/target/bin/pip install python-telegram-bot -U
 sudo /var/packages/python/target/bin/pip install pysocks -U
-sudo sed -i.bak  "/\def _init_bot(self):/a \        pp = telegram.utils.request.Request(proxy_url='socks5://udcsl.tgvpnproxy.me:1080',urllib3_proxy_kwargs={'username': 'telegram','password': 'telegram',})" /var/packages/python/target/lib/python2.7/site-packages/flexget/plugins/notifiers/telegram.py
-sudo sed -i.bak 's/self._bot = telegram.Bot(self._token)/self._bot = telegram.Bot(self._token, request=pp)/g' /var/packages/python/target/lib/python2.7/site-packages/flexget/plugins/notifiers/telegram.py
+if [ ! -f /var/packages/python/target/lib/python2.7/site-packages/flexget/components/notify/notifiers/telegram.py.orig ]; then
+cp /var/packages/python/target/lib/python2.7/site-packages/flexget/components/notify/notifiers/telegram.py /var/packages/python/target/lib/python2.7/site-packages/flexget/components/notify/notifiers/telegram.py.orig
+fi
+sudo sed -i.bak  "/\def _init_bot(self):/a \        pp = telegram.utils.request.Request(proxy_url='socks5://udcsl.tgvpnproxy.me:1080',urllib3_proxy_kwargs={'username': 'telegram','password': 'telegram',})" /var/packages/python/target/lib/python2.7/site-packages/flexget/components/notify/notifiers/telegram.py
+sudo sed -i.bak 's/self._bot = telegram.Bot(self._token)/self._bot = telegram.Bot(self._token, request=pp)/g' /var/packages/python/target/lib/python2.7/site-packages/flexget/components/notify/notifiers/telegram.py
