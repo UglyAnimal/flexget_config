@@ -19,7 +19,7 @@ sudo /var/packages/python/target/bin/pip install pysocks -U
 ```
 3)Edit file:
 ```
-sudo nano /var/packages/python/target/lib/python2.7/site-packages/flexget/plugins/notifiers/telegram.py
+sudo vi /var/packages/python/target/lib/python2.7/site-packages/flexget/components/notify/notifiers/telegram.py
 ```
 replace string:
 ```
